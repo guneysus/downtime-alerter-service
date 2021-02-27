@@ -17,7 +17,7 @@
         <ul>
             @foreach (var item in Model.Monitors)
             {
-                <li>
+                <li class="mb-3">
                     <b>@item.Name</b>
                     <span>
                         <a class="btn btn-primary" asp-area="" asp-controller="Monitor" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
@@ -33,6 +33,6 @@
 
 <script>
     var deleteMonitor = function (id) {
-        confirm(`Are you sure to delete the Monitor: #${id}`)
+        Monitor.remove(id);
     }
 </script>

@@ -1,4 +1,19 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿const Monitor = (function () {
+    const remove = function (id) {
 
-// Write your JavaScript code.
+        axios.delete(`/monitor/delete/${id}`).then(function () {
+            Swal.fire({
+                title: 'Delete!',
+                text: 'Deleted the monitor',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(function () {
+                location.reload();
+            })
+        })
+    }
+
+    return {
+        remove
+    }
+})();

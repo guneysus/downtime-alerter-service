@@ -21,7 +21,7 @@ namespace DowntimeAlerterWeb.Controllers
         public IActionResult Add(Models.MonitoringModel model)
         {
             var id = downtimeService.AddMonitor(model);
-            return RedirectToAction("Edit", id);
+            return RedirectToAction("Edit", new { id });
         }
 
         [Authorize, HttpGet]
@@ -32,10 +32,9 @@ namespace DowntimeAlerterWeb.Controllers
         }
 
         [Authorize, HttpDelete]
-        public IActionResult Delete(int id)
+        public void Delete(int id)
         {
             downtimeService.DeleteMonitorById(id);
-            return RedirectToAction("Index", "Dashboard");
         }
 
 
