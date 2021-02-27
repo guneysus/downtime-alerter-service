@@ -2,6 +2,12 @@
 
 ## Running
 
+```
+dotnet user-secrets set SendGridKey <key>
+```
+
+or `Manage User Secrets`
+
 ## Using
 
 Default user/password:
