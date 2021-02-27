@@ -1,8 +1,7 @@
-﻿using DowntimeAlerterWeb.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using DowntimeAlerterWeb.Entities;
+using DowntimeAlerterWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -33,17 +32,6 @@ namespace DowntimeAlerterWeb.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
-
-
-    public class DashboardController : Controller
-    {
-
-        [Authorize]
-        public IActionResult Index()
-        {
-            return View();
         }
     }
 }

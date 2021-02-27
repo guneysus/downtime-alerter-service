@@ -1,6 +1,6 @@
 ﻿using System;
 using DowntimeAlerterWeb.Areas.Identity.Data;
-using DowntimeAlerterWeb.Data;
+using DowntimeAlerterWeb.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;

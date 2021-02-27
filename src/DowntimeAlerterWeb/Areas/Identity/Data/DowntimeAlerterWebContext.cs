@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace DowntimeAlerterWeb.Data
+namespace DowntimeAlerterWeb.Entities
 {
     public class DowntimeAlerterWebContext : IdentityDbContext<DowntimeAlerterWebUser>
     {

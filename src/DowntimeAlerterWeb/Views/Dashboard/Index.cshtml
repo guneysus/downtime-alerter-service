@@ -1,7 +1,38 @@
-﻿@{
+﻿@model DashboardModel
+
+@{
     ViewData["Title"] = "Dashboard";
 }
 
 <div class="text-center">
     <h1 class="display-4">Dashboard</h1>
 </div>
+
+<div class="row">
+    <h2>Monitors</h2>
+    <div class="col-md-12">
+
+        <span><a class="btn btn-success" asp-area="" asp-controller="Monitor" asp-action="Add" asp-route-id="0">Add</a></span>
+
+        <ul>
+            @foreach (var item in Model.Monitors)
+            {
+                <li>
+                    <b>@item.Name</b>
+                    <span>
+                        <a class="btn btn-primary" asp-area="" asp-controller="Monitor" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <button class="btn btn-danger" onclick="deleteMonitor(@item.Id)">Delete</button>
+                    </span>
+                </li>
+            }
+        </ul>
+
+    </div>
+
+</div>
+
+<script>
+    var deleteMonitor = function (id) {
+        confirm(`Are you sure to delete the Monitor: #${id}`)
+    }
+</script>
