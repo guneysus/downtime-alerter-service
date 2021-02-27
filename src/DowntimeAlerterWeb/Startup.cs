@@ -30,6 +30,12 @@ namespace DowntimeAlerterWeb
             services.AddTransient<IEmailSender, EmailSender>();
             services.Configure<AuthMessageSenderOptions>(Configuration);
 
+            services.AddDbContext<Data.DowntimeAlerterDataContext>(options => {
+                
+                options.UseSqlite("Data Source=DowntimeAlerterData.db;Version=3;", sqliteOptions => { 
+                });
+            });
+
             services.AddRazorPages();
         }
 
