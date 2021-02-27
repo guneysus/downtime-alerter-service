@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntervalParserLib", "IntervalParserLib\IntervalParserLib.csproj", "{7162CFEC-8CF3-46D6-BA6E-8C757C758AF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntervalParserLib", "IntervalParserLib\IntervalParserLib.csproj", "{7162CFEC-8CF3-46D6-BA6E-8C757C758AF9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntervalParserLib.Tests", "IntervalParserLib.Tests\IntervalParserLib.Tests.csproj", "{87C28416-3E49-4A42-924A-098B34D14CEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntervalParserLib.Tests", "IntervalParserLib.Tests\IntervalParserLib.Tests.csproj", "{87C28416-3E49-4A42-924A-098B34D14CEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DowntimeAlerterWeb", "DowntimeAlerterWeb\DowntimeAlerterWeb.csproj", "{BD38A5EE-8425-4652-A08E-3DA384E71DA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{87C28416-3E49-4A42-924A-098B34D14CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87C28416-3E49-4A42-924A-098B34D14CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87C28416-3E49-4A42-924A-098B34D14CEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD38A5EE-8425-4652-A08E-3DA384E71DA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD38A5EE-8425-4652-A08E-3DA384E71DA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD38A5EE-8425-4652-A08E-3DA384E71DA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD38A5EE-8425-4652-A08E-3DA384E71DA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
