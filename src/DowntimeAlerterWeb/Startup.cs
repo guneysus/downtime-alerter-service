@@ -41,6 +41,9 @@ namespace DowntimeAlerterWeb
 
             services.AddScoped<IDowntimeAlertService, DowntimeAlertService>();
 
+            services.AddScoped<BacklogProcessingService>();
+            services.AddHostedService<DowntimeAlertHostedService>();
+
             services.AddRazorPages();
         }
 
