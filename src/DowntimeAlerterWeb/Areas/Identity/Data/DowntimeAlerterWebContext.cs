@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DowntimeAlerterWeb.Areas.Identity.Data;
-using Microsoft.AspNetCore.Identity;
+﻿using DowntimeAlerterWeb.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

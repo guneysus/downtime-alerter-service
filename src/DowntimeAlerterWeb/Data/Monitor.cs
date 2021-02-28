@@ -1,10 +1,5 @@
-﻿using DowntimeAlerterWeb.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DowntimeAlerterWeb.Entities
 {
@@ -17,6 +12,8 @@ namespace DowntimeAlerterWeb.Entities
         public string Url { get; set; }
 
         public string Interval { get; set; }
+
+        public virtual ICollection<StatusLog> Statuses { get; set; }
     }
 
     public class StatusLog

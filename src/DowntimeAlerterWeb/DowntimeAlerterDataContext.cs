@@ -1,7 +1,5 @@
-﻿using System;
-using DowntimeAlerterWeb.Entities;
+﻿using DowntimeAlerterWeb.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 

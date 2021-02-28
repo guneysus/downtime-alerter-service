@@ -1,5 +1,4 @@
-﻿using DowntimeAlerterHelpers;
-using DowntimeAlerterWeb.Models;
+﻿using DowntimeAlerterWeb.Models;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,5 @@
 ﻿using DowntimeAlerterWeb.Entities;
 using DowntimeAlerterWeb.Models;
-using System;
 using System.Collections.Generic;
 
 namespace DowntimeAlerterWeb.Services
@@ -12,6 +11,7 @@ namespace DowntimeAlerterWeb.Services
         MonitoringModel GetMonitorById(int id);
         void DeleteMonitorById(int id);
         IEnumerable<MonitoringModel> GetMonitorList();
+        IEnumerable<StatusModel> GetStatusModels();
         void LogStatus(StatusLog statusLog);
     }
 }

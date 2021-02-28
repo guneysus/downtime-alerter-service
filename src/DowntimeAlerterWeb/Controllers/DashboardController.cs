@@ -2,10 +2,10 @@
 using DowntimeAlerterWeb.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace DowntimeAlerterWeb.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly IDowntimeAlertService downtimeAlertService;
@@ -16,7 +16,7 @@ namespace DowntimeAlerterWeb.Controllers
         }
 
 
-        [Authorize, HttpGet]
+        [HttpGet]
         public IActionResult Index()
         {
             var monitors = downtimeAlertService.GetMonitorList();
@@ -24,6 +24,17 @@ namespace DowntimeAlerterWeb.Controllers
             var model = new DashboardModel
             {
                 Monitors = monitors
+            };
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Status()
+        {
+            var model = new DashboardStatusModel
+            {
+                Statuses = downtimeAlertService.GetStatusModels()
             };
 
             return View(model);

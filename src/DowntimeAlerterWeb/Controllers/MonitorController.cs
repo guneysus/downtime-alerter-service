@@ -2,47 +2,45 @@
 using DowntimeAlerterWeb.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace DowntimeAlerterWeb.Controllers
 {
+
+    [Authorize]
     public class MonitorController : Controller
     {
-        private readonly IDowntimeAlertService downtimeService;
+        private readonly IDowntimeAlertService _downtimeService;
 
-        public MonitorController(IDowntimeAlertService downTimeService)
-        {
-            this.downtimeService = downTimeService;
-        }
+        public MonitorController(IDowntimeAlertService downTimeService) => _downtimeService = downTimeService;
 
 
-        [Authorize, HttpGet] public IActionResult Add() => View();
+        [HttpGet] public IActionResult Add() => View();
 
-        [Authorize, HttpPost]
+        [HttpPost]
         public IActionResult Add(MonitoringModel model)
         {
-            var id = downtimeService.AddMonitor(model);
+            var id = _downtimeService.AddMonitor(model);
             return RedirectToAction("Edit", new { id });
         }
 
-        [Authorize, HttpGet]
+        [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = downtimeService.GetMonitorById(id);
+            var model = _downtimeService.GetMonitorById(id);
             return View(model);
         }
 
-        [Authorize, HttpPost]
+        [HttpPost]
         public IActionResult Update(MonitoringModel model)
         {
-            model = downtimeService.UpdateMonitor(model);
+            model = _downtimeService.UpdateMonitor(model);
             return RedirectToAction("Edit", new { model.Id });
         }
 
-        [Authorize, HttpDelete]
+        [HttpDelete]
         public void Delete(int id)
         {
-            downtimeService.DeleteMonitorById(id);
+            _downtimeService.DeleteMonitorById(id);
         }
 
 

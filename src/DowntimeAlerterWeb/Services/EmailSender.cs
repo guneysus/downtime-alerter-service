@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DowntimeAlerterWeb.Services
