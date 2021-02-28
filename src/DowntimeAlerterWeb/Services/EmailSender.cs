@@ -17,13 +17,15 @@ namespace DowntimeAlerterWeb.Services
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
-            return Task.CompletedTask;
-            // TODO return Execute(Options.SendGridKey, subject, message, email);
+            if (Options.BlockEmail) return Task.CompletedTask;
+
+            return Execute(Options.SendGridKey, subject, message, email);
         }
 
         public Task Execute(string apiKey, string subject, string message, string email)
         {
             var client = new SendGridClient(apiKey);
+
             var msg = new SendGridMessage()
             {
                 From = new EmailAddress(Options.NoreplyEmail, Options.SendGridUser),
@@ -31,6 +33,7 @@ namespace DowntimeAlerterWeb.Services
                 PlainTextContent = message,
                 HtmlContent = message
             };
+
             msg.AddTo(new EmailAddress(email));
 
             // Disable click tracking.
