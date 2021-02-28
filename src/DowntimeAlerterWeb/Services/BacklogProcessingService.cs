@@ -31,15 +31,14 @@ namespace DowntimeAlerterWeb.Services
             {
                 IEnumerable<MonitoringModel> monitors = _downtimeAlertService.GetMonitorList();
 
-                var nextExecution = DateTime.Now
-                    .getNextExecutionTimeTotalMinutes(TimeSpan.Zero);
+                var currentExecutionTotalMinutes = getCurrentExecutionTimeTotalMinutes();
 
                 foreach (var item in monitors)
                 {
-                    if (isValid(item))
+                    if (item.IsValid)
                     {
                         var totalMinutes = parseInterval(item.Interval).TotalMinutes;
-                        var inSprint = (nextExecution % totalMinutes) == 0;
+                        var inSprint = (currentExecutionTotalMinutes % totalMinutes) == 0;
                         if (inSprint)
                         {
                             _monitorLoop.AddTask(item.Adapt<SprintTaskInformation>());
@@ -54,11 +53,6 @@ namespace DowntimeAlerterWeb.Services
 
                 await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
             }
-        }
-
-        private bool isValid(MonitoringModel item)
-        {
-            return !(string.IsNullOrEmpty(item.Interval) || string.IsNullOrEmpty(item.Url));
         }
     }
 }

@@ -12,6 +12,10 @@ namespace DowntimeAlerterHelpers
             .getTime()
             .TotalMinutes.toInt();
 
+        public static int getCurrentExecutionTimeTotalMinutes() => getNextExecution(DateTime.Now, TimeSpan.Zero)
+            .getTime()
+            .TotalMinutes.toInt();
+
         static int toInt(this double value) => Convert.ToInt32(value);
     }
 
