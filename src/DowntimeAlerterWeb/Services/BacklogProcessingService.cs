@@ -18,7 +18,9 @@ namespace DowntimeAlerterWeb.Services
         private readonly IDowntimeAlertService _downtimeAlertService;
         private readonly MonitorLoop _monitorLoop;
 
-        public BacklogProcessingService(ILogger<BacklogProcessingService> logger, IDowntimeAlertService downtimeAlertService, MonitorLoop monitorLoop)
+        public BacklogProcessingService(ILogger<BacklogProcessingService> logger, 
+            IDowntimeAlertService downtimeAlertService, 
+            MonitorLoop monitorLoop)
         {
             _logger = logger;
             _downtimeAlertService = downtimeAlertService;

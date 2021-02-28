@@ -10,6 +10,7 @@ namespace DowntimeAlerterWeb
     public partial class DowntimeAlerterDataContext : DbContext
     {
         public DbSet<Monitor> Monitors { get; set; }
+        public DbSet<StatusLog> StatusLogs { get; set; }
 
         public DowntimeAlerterDataContext()
         {

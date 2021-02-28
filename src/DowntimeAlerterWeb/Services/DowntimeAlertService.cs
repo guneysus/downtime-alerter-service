@@ -45,6 +45,12 @@ namespace DowntimeAlerterWeb.Services
                 .ProjectToType<MonitoringModel>();
         }
 
+        void IDowntimeAlertService.LogStatus(StatusLog statusLog)
+        {
+            _ = db.StatusLogs.Add(statusLog);
+            _ = db.SaveChanges();
+        }
+
         MonitoringModel IDowntimeAlertService.UpdateMonitor(MonitoringModel model)
         {
             var entity = db.Monitors.Find(model.Id);

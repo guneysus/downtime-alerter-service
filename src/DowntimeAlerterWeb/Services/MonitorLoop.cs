@@ -5,6 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using System.Net.Http;
+using DowntimeAlerterWeb.Notification;
+using MediatR;
 
 namespace DowntimeAlerterWeb.Services
 {
@@ -13,15 +15,17 @@ namespace DowntimeAlerterWeb.Services
         private readonly IBackgroundTaskQueue _taskQueue;
         private readonly ILogger _logger;
         private readonly IHttpClientFactory _clientFactory;
+        private readonly IMediator _mediator;
         private readonly CancellationToken _cancellationToken;
 
         public MonitorLoop(IBackgroundTaskQueue taskQueue,
             ILogger<MonitorLoop> logger,
-            IHostApplicationLifetime applicationLifetime, IHttpClientFactory clientFactory)
+            IHostApplicationLifetime applicationLifetime, IHttpClientFactory clientFactory, IMediator mediator)
         {
             _taskQueue = taskQueue;
             _logger = logger;
             _clientFactory = clientFactory;
+            _mediator = mediator;
             _cancellationToken = applicationLifetime.ApplicationStopping;
         }
 
@@ -59,7 +63,8 @@ namespace DowntimeAlerterWeb.Services
                     exception = ex;
                 }
 
-                var result = SprintTaskResult.New(response.StatusCode, exception);
+                var notification = ResponseNotification.New(task, response.StatusCode, exception);
+                await _mediator.Publish(notification, token);
 
             };
 

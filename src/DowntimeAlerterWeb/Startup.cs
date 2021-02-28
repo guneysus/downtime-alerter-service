@@ -1,4 +1,5 @@
 using DowntimeAlerterWeb.Services;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +51,7 @@ namespace DowntimeAlerterWeb
             services.AddHostedService<QueuedHostedService>();
             services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
 
+            services.AddMediatR(typeof(Startup));
             services.AddRazorPages();
         }
 
@@ -63,8 +66,10 @@ namespace DowntimeAlerterWeb
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
             app.UseStaticFiles();
 
+            app.UseSerilogRequestLogging();
             app.UseRouting();
 
             app.UseAuthentication();

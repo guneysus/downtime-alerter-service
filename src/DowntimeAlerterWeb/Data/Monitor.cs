@@ -19,4 +19,14 @@ namespace DowntimeAlerterWeb.Entities
         public string Interval { get; set; }
     }
 
+    public class StatusLog
+    {
+        public int Id { get; set; }
+        public int MonitorId { get; set; }
+        public Monitor Monitor { get; set; }
+
+        public int HttpStatusCode { get; set; }
+        public DateTime ExecutedOn { get; set; }
+    }
+
 }

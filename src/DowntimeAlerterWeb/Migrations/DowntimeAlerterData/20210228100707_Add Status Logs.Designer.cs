@@ -3,14 +3,16 @@ using System;
 using DowntimeAlerterWeb;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DowntimeAlerterWeb.Migrations.DowntimeAlerterData
 {
     [DbContext(typeof(DowntimeAlerterDataContext))]
-    partial class DowntimeAlerterDataContextModelSnapshot : ModelSnapshot
+    [Migration("20210228100707_Add Status Logs")]
+    partial class AddStatusLogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,20 +55,7 @@ namespace DowntimeAlerterWeb.Migrations.DowntimeAlerterData
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MonitorId");
-
                     b.ToTable("StatusLogs");
-                });
-
-            modelBuilder.Entity("DowntimeAlerterWeb.Entities.StatusLog", b =>
-                {
-                    b.HasOne("DowntimeAlerterWeb.Entities.Monitor", "Monitor")
-                        .WithMany()
-                        .HasForeignKey("MonitorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Monitor");
                 });
 #pragma warning restore 612, 618
         }
