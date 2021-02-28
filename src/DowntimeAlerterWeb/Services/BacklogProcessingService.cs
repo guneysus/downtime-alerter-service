@@ -39,12 +39,16 @@ namespace DowntimeAlerterWeb.Services
 
                 foreach (var item in monitors)
                 {
-                    var totalMinutes = parseInterval(item.Interval).TotalMinutes;
-                    var inSprint = (nextExecution % totalMinutes) == 0;
-                    if (inSprint)
+                    if(isValid(item))
                     {
-                        _monitorLoop.AddTask(item.Adapt<SprintTask>());
+                        var totalMinutes = parseInterval(item.Interval).TotalMinutes;
+                        var inSprint = (nextExecution % totalMinutes) == 0;
+                        if (inSprint)
+                        {
+                            _monitorLoop.AddTask(item.Adapt<SprintTaskInformation>());
+                        }
                     }
+
                 }
 
                 executionCount++;
@@ -53,6 +57,11 @@ namespace DowntimeAlerterWeb.Services
 
                 await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
             }
+        }
+
+        private bool isValid(MonitoringModel item)
+        {
+            return !(string.IsNullOrEmpty(item.Interval) || string.IsNullOrEmpty(item.Url));
         }
     }
 
@@ -162,18 +171,30 @@ namespace DowntimeAlerterWeb.Services
             while (!_cancellationToken.IsCancellationRequested) ; // Application stopping, DO cleanup, teardown here.
         }
 
-
-        public void AddTask(SprintTask task)
+        public void AddTask(SprintTaskInformation task)
         {
-            Func<CancellationToken, Task> httpGet = async token =>
+            Func<CancellationToken, Task> createTask = async token =>
             {
-                var request = new HttpRequestMessage(HttpMethod.Get, task.Url);
-                var client = _clientFactory.CreateClient();
-                var response = await client.SendAsync(request);
+                using var request = new HttpRequestMessage(HttpMethod.Get, task.Url);
+                using var client = _clientFactory.CreateClient();
+                Exception exception = default;
+                HttpResponseMessage response = default;
+
+                try
+                {
+                    response = await client.SendAsync(request);
+                }
+                catch (Exception ex)
+                {
+                    exception = ex;
+                }
+
+                var result = SprintTaskResult.New(response.StatusCode, exception);
+
             };
 
             _logger.LogInformation("Adding task to the queue: Monitor#{Id} {Url}", task.Id, task.Url);
-            _taskQueue.QueueBackgroundWorkItem(httpGet);
+            _taskQueue.QueueBackgroundWorkItem(createTask);
         }
     }
 }

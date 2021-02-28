@@ -8,7 +8,7 @@
     <h1 class="display-4">Edit Monitor</h1>
 </div>
 
-<form asp-area="" asp-controller="Monitor" asp-action="Add" method="post">
+<form asp-area="" asp-controller="Monitor" asp-action="Update" method="post">
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input type="hidden" asp-for="@Model.Id" class="form-control" placeholder="Id">
@@ -22,11 +22,11 @@
 
     <div class="mb-3">
         <label for="interval" class="form-label">Interval</label>
-        <input type="text" asp-for="@Model.Interval" class="form-control" placeholder="1m" value="5 minutes" required>
+        <input type="text" asp-for="@Model.Interval" class="form-control" placeholder="1m" required>
     </div>
 
     <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Save Monitor</button>
+        <button type="submit" class="btn btn-primary">Update Monitor</button>
     </div>
 
 </form>

@@ -1,4 +1,5 @@
-﻿using DowntimeAlerterWeb.Services;
+﻿using DowntimeAlerterWeb.Models;
+using DowntimeAlerterWeb.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,7 +19,7 @@ namespace DowntimeAlerterWeb.Controllers
         [Authorize, HttpGet] public IActionResult Add() => View();
 
         [Authorize, HttpPost]
-        public IActionResult Add(Models.MonitoringModel model)
+        public IActionResult Add(MonitoringModel model)
         {
             var id = downtimeService.AddMonitor(model);
             return RedirectToAction("Edit", new { id });
@@ -29,6 +30,13 @@ namespace DowntimeAlerterWeb.Controllers
         {
             var model = downtimeService.GetMonitorById(id);
             return View(model);
+        }
+
+        [Authorize, HttpPost]
+        public IActionResult Update(MonitoringModel model)
+        {
+            model = downtimeService.UpdateMonitor(model);
+            return RedirectToAction("Edit", new { model.Id });
         }
 
         [Authorize, HttpDelete]

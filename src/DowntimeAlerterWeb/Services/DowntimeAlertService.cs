@@ -44,5 +44,18 @@ namespace DowntimeAlerterWeb.Services
                 .AsNoTracking()
                 .ProjectToType<MonitoringModel>();
         }
+
+        MonitoringModel IDowntimeAlertService.UpdateMonitor(MonitoringModel model)
+        {
+            var entity = db.Monitors.Find(model.Id);
+            db.Entry(entity).State = EntityState.Detached;
+
+            entity = model.Adapt<Monitor>();
+            db.Entry(entity).State = EntityState.Modified;
+
+            db.SaveChanges();
+
+            return entity.Adapt<MonitoringModel>();
+        }
     }
 }
