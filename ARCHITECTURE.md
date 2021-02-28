@@ -76,6 +76,25 @@ Kindly have a look at to the PoC: https://regex101.com/r/9p6frz/1
   - Site down results, broadcasted to Email Notification handler by default, **but** any new channel can be easily added the receivers by defining a class that implements: `INotificationHandler<FailedResponseNotification>`
 
 
+## Screenshots
+
+![monitor list](media/chrome_6ZIssP3mvu.png)
+
+![add monitor](media/chrome_CKrZc0huxh.png)
+
+![edit monitor](media/chrome_hCB9jSt14D.png)
+
+![delete monitor](media/chrome_3CIIyEb6Z0.png)
+
+![delete monitor](media/chrome_rsSbKfa6li.png)
+
+![status page](media/chrome_16E2pSbqSj.png)
+
+![status page](media/chrome_EaZGwEjYP9.png)
+
+![reset password email](media/vivaldi_mPfWGDIsKo.png)
+
+
 ## References
 
 - Initial layout, created by ASP.Net Core Web and Identity scaffolder tool

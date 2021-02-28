@@ -2,24 +2,7 @@
 
 ## [Architecture](ARCHITECTURE.md)
 
-## Running
-
-```
-dotnet user-secrets set SendGridKey <key>
-```
-
-or `Manage User Secrets`
-
-The sqlite database is included in repo and two monitor is defined:
-
-|Id|Name|Url|Interval|
-|--|----|---|--------|
-|5|example.org|http://example.org/|3mins|
-|8|httpbin.org|http://httpbin.org/status/500|1 m|
-
-httpbin.org, configured for returning `HTTP 500` error response code.
-
-## Using
+## Running and Using
 
 user/passwords:
 
@@ -34,6 +17,33 @@ password: FqH4h8J!G
 ```
 
 
+## Sending Emails
+
+Sending email is blocked by default to avoid SendGrid free service limits.
+To be able to send notification and account related emails, simple change `BlockEmail` feature toggle to `false`.
+
+SengGrid, needs an API key, it can be by:
+
+```
+dotnet user-secrets set SendGridKey <key>
+```
+
+or using Visual Studit `Manage User Secrets` and adding this line:
+
+```
+"SendGridKey": "<REDACTED>"
+```
+
+The sqlite database is included in repo and two monitor is defined:
+
+|Id|Name|Url|Interval|
+|--|----|---|--------|
+|5|example.org|http://example.org/|3mins|
+|8|httpbin.org|http://httpbin.org/status/500|1 m|
+
+httpbin.org, configured for returning `HTTP 500` error response code.
+
+
 ## Migrations
 
 ```
@@ -42,21 +52,3 @@ dotnet ef migrations add InitialCreate --context DowntimeAlerterDataContext
 dotnet ef database update --context DowntimeAlerterDataContext
 ```
 
-
-## Screenshots
-
-![monitor list](media/chrome_6ZIssP3mvu.png)
-
-![add monitor](media/chrome_CKrZc0huxh.png)
-
-![edit monitor](media/chrome_hCB9jSt14D.png)
-
-![delete monitor](media/chrome_3CIIyEb6Z0.png)
-
-![delete monitor](media/chrome_rsSbKfa6li.png)
-
-![status page](media/chrome_16E2pSbqSj.png)
-
-![status page](media/chrome_EaZGwEjYP9.png)
-
-![reset password email](media/vivaldi_mPfWGDIsKo.png)
