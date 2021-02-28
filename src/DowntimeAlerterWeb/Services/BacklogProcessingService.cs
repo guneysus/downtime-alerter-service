@@ -8,9 +8,6 @@ using System.Threading.Tasks;
 using static DowntimeAlerterHelpers.DateTimeHelpers;
 using static IntervalParserLib.IntervalParser;
 using Mapster;
-using Microsoft.Extensions.Hosting;
-using System.Collections.Concurrent;
-using System.Net.Http;
 
 namespace DowntimeAlerterWeb.Services
 {
@@ -39,7 +36,7 @@ namespace DowntimeAlerterWeb.Services
 
                 foreach (var item in monitors)
                 {
-                    if(isValid(item))
+                    if (isValid(item))
                     {
                         var totalMinutes = parseInterval(item.Interval).TotalMinutes;
                         var inSprint = (nextExecution % totalMinutes) == 0;
@@ -62,139 +59,6 @@ namespace DowntimeAlerterWeb.Services
         private bool isValid(MonitoringModel item)
         {
             return !(string.IsNullOrEmpty(item.Interval) || string.IsNullOrEmpty(item.Url));
-        }
-    }
-
-    public interface IBackgroundTaskQueue
-    {
-        void QueueBackgroundWorkItem(Func<CancellationToken, Task> workItem);
-
-        Task<Func<CancellationToken, Task>> DequeueAsync(CancellationToken cancellationToken);
-    }
-
-    public class BackgroundTaskQueue : IBackgroundTaskQueue
-    {
-        private ConcurrentQueue<Func<CancellationToken, Task>> _workItems = new ConcurrentQueue<Func<CancellationToken, Task>>();
-
-        private SemaphoreSlim _signal = new SemaphoreSlim(0);
-
-        public void QueueBackgroundWorkItem(Func<CancellationToken, Task> workItem)
-        {
-            if (workItem == null)
-            {
-                throw new ArgumentNullException(nameof(workItem));
-            }
-
-            _workItems.Enqueue(workItem);
-            _signal.Release();
-        }
-
-        public async Task<Func<CancellationToken, Task>> DequeueAsync(CancellationToken cancellationToken)
-        {
-            await _signal.WaitAsync(cancellationToken);
-            _workItems.TryDequeue(out var workItem);
-
-            return workItem;
-        }
-    }
-
-    public class QueuedHostedService : BackgroundService
-    {
-        private readonly ILogger<QueuedHostedService> _logger;
-
-        public QueuedHostedService(IBackgroundTaskQueue taskQueue,
-            ILogger<QueuedHostedService> logger)
-        {
-            TaskQueue = taskQueue;
-            _logger = logger;
-        }
-
-        public IBackgroundTaskQueue TaskQueue { get; }
-
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            await BackgroundProcessing(stoppingToken);
-        }
-
-        private async Task BackgroundProcessing(CancellationToken stoppingToken)
-        {
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                var workItem = await TaskQueue.DequeueAsync(stoppingToken);
-
-                try
-                {
-                    await workItem(stoppingToken);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error occurred executing {WorkItem}.", nameof(workItem));
-                }
-            }
-        }
-
-        public override async Task StopAsync(CancellationToken stoppingToken)
-        {
-            _logger.LogInformation("Queued Hosted Service is stopping.");
-
-            await base.StopAsync(stoppingToken);
-        }
-    }
-
-    public class MonitorLoop
-    {
-        private readonly IBackgroundTaskQueue _taskQueue;
-        private readonly ILogger _logger;
-        private readonly IHttpClientFactory _clientFactory;
-        private readonly CancellationToken _cancellationToken;
-
-        public MonitorLoop(IBackgroundTaskQueue taskQueue,
-            ILogger<MonitorLoop> logger,
-            IHostApplicationLifetime applicationLifetime, IHttpClientFactory clientFactory)
-        {
-            _taskQueue = taskQueue;
-            _logger = logger;
-            _clientFactory = clientFactory;
-            _cancellationToken = applicationLifetime.ApplicationStopping;
-        }
-
-        public void StartMonitorLoop()
-        {
-            _logger.LogInformation("Monitor Loop is starting.");
-
-            // Run a console user input loop in a background thread
-            Task.Run(() => Monitor());
-        }
-
-        public void Monitor()
-        {
-            while (!_cancellationToken.IsCancellationRequested) ; // Application stopping, DO cleanup, teardown here.
-        }
-
-        public void AddTask(SprintTaskInformation task)
-        {
-            Func<CancellationToken, Task> createTask = async token =>
-            {
-                using var request = new HttpRequestMessage(HttpMethod.Get, task.Url);
-                using var client = _clientFactory.CreateClient();
-                Exception exception = default;
-                HttpResponseMessage response = default;
-
-                try
-                {
-                    response = await client.SendAsync(request);
-                }
-                catch (Exception ex)
-                {
-                    exception = ex;
-                }
-
-                var result = SprintTaskResult.New(response.StatusCode, exception);
-
-            };
-
-            _logger.LogInformation("Adding task to the queue: Monitor#{Id} {Url}", task.Id, task.Url);
-            _taskQueue.QueueBackgroundWorkItem(createTask);
         }
     }
 }
