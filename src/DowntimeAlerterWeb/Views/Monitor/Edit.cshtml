@@ -1,0 +1,32 @@
+﻿@model MonitoringModel
+
+@{
+    ViewData["Title"] = "Edit Monitor";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Edit Monitor</h1>
+</div>
+
+<form asp-area="" asp-controller="Monitor" asp-action="Update" method="post">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="hidden" asp-for="@Model.Id" class="form-control" placeholder="Id">
+        <input type="text" asp-for="@Model.Name" class="form-control" placeholder="Name" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="url" class="form-label">URL</label>
+        <input type="url" asp-for="@Model.Url" class="form-control" placeholder="URL" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="interval" class="form-label">Interval</label>
+        <input type="text" asp-for="@Model.Interval" class="form-control" placeholder="1m" required>
+    </div>
+
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Update Monitor</button>
+    </div>
+
+</form>

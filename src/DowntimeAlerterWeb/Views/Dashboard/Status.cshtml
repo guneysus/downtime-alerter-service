@@ -1,0 +1,59 @@
+﻿@model DashboardStatusModel
+
+@{
+    ViewData["Title"] = "Service Status";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Status Page</h1>
+</div>
+
+<div class="row">
+    <h2>Status Page</h2>
+    <div class="col-md-12">
+
+        <table class="table table-striped table-hover table-sm col-md-6">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Domain</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Statuses)
+                {
+                    var status = string.Empty;
+
+                    switch (item.Status)
+                    {
+                        case ServiceStatus.Unknown:
+                            status = "table-primary";
+                            break;
+                        case ServiceStatus.Up:
+                            status = "table-success";
+                            break;
+                        case ServiceStatus.Down:
+                            status = "table-danger";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    <tr class="@status">
+                        <th scope="row">@item.Domain</th>
+                        <th scope="row">@item.Status.ToString()</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+    var deleteMonitor = function (id) {
+        Monitor.remove(id);
+    }
+</script>
