@@ -15,11 +15,11 @@ namespace DowntimeAlerterWeb.Services
 
         public AuthMessageSenderOptions Options { get; } //set only via Secret Manager
 
-        public Task SendEmailAsync(string email, string subject, string message)
+        public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             if (Options.BlockEmail) return Task.CompletedTask;
 
-            return Execute(Options.SendGridKey, subject, message, email);
+            return Execute(Options.SendGridKey, subject, htmlMessage, email);
         }
 
         public Task Execute(string apiKey, string subject, string message, string email)

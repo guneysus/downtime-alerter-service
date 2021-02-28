@@ -60,11 +60,15 @@ namespace DowntimeAlerterWeb.Services
                 }
                 catch (Exception ex)
                 {
+                    _logger.LogError(ex, ex.Message);
                     exception = ex;
                 }
 
-                var notification = ResponseNotification.New(task, response.StatusCode, exception);
+                ResponseNotification notification = ResponseNotification.New(task, response.StatusCode, exception);
                 await _mediator.Publish(notification, token);
+
+                if (!response.IsSuccessStatusCode)
+                    await _mediator.Publish(FailedResponseNotification.New(task, response.StatusCode, exception));
 
             };
 

@@ -38,8 +38,22 @@ namespace DowntimeAlerterWeb.Services
                 {
                     if (item.IsValid)
                     {
-                        var totalMinutes = parseInterval(item.Interval).TotalMinutes;
-                        var inSprint = (currentExecutionTotalMinutes % totalMinutes) == 0;
+                        double totalMinutes = 1;
+                        bool inSprint = false;
+
+                        try
+                        {
+                            totalMinutes = parseInterval(item.Interval).TotalMinutes;
+                            inSprint = (currentExecutionTotalMinutes % totalMinutes) == 0;
+                        }
+                        catch (FormatException ex)
+                        {
+                            _logger.LogError(ex, ex.Message);
+                        } catch(Exception ex)
+                        {
+                            _logger.LogError(ex, ex.Message);
+                        }
+
                         if (inSprint)
                         {
                             _monitorLoop.AddTask(item.Adapt<SprintTaskInformation>());
@@ -52,7 +66,7 @@ namespace DowntimeAlerterWeb.Services
 
                 _logger.LogInformation("Scoped Processing Service is working. Count: {Count}", executionCount);
 
-                await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
             }
         }
     }

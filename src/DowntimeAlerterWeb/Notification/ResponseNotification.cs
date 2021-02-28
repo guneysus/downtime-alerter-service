@@ -21,6 +21,16 @@ namespace DowntimeAlerterWeb.Notification
         }
 
         public static ResponseNotification New(SprintTaskInformation taskInformation, HttpStatusCode httpStatus, Exception exception) => new ResponseNotification(taskInformation, httpStatus, exception);
+
     }
 
+    public class FailedResponseNotification : ResponseNotification
+    {
+        protected FailedResponseNotification(SprintTaskInformation taskInformation, HttpStatusCode httpStatus, Exception exception) : base(taskInformation, httpStatus, exception)
+        {
+        }
+        public static FailedResponseNotification New(SprintTaskInformation taskInformation, HttpStatusCode httpStatus, Exception exception) => new FailedResponseNotification(taskInformation, httpStatus, exception);
+
+
+    }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DowntimeAlerterWeb.Notification
 {
-    public class EmailNotificationHandler : INotificationHandler<ResponseNotification>
+    public class EmailNotificationHandler : INotificationHandler<FailedResponseNotification>
     {
         private readonly IEmailSender _email;
         private readonly AuthMessageSenderOptions _options;
@@ -19,7 +19,7 @@ namespace DowntimeAlerterWeb.Notification
             _options = optionsAccessor.Value;
         }
 
-        public Task Handle(ResponseNotification notification, CancellationToken cancellationToken)
+        public Task Handle(FailedResponseNotification notification, CancellationToken cancellationToken)
         {
             string domain = new Uri(notification.TaskInformation.Url).Host;
             string subject = $"{domain} is down";
