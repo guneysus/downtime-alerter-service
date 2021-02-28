@@ -27,4 +27,9 @@
     <PackageReference Include="SendGrid" Version="9.22.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DowntimeAlerterHelpers\DowntimeAlerterHelpers.csproj" />
+    <ProjectReference Include="..\IntervalParserLib\IntervalParserLib.csproj" />
+  </ItemGroup>
+
 </Project>

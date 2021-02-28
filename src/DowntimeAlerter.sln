@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntervalParserLib.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DowntimeAlerterWeb", "DowntimeAlerterWeb\DowntimeAlerterWeb.csproj", "{BD38A5EE-8425-4652-A08E-3DA384E71DA5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DowntimeAlerterHelpers", "DowntimeAlerterHelpers\DowntimeAlerterHelpers.csproj", "{0FD817C2-9277-4882-9E51-A59C46218023}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BD38A5EE-8425-4652-A08E-3DA384E71DA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD38A5EE-8425-4652-A08E-3DA384E71DA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD38A5EE-8425-4652-A08E-3DA384E71DA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FD817C2-9277-4882-9E51-A59C46218023}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FD817C2-9277-4882-9E51-A59C46218023}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FD817C2-9277-4882-9E51-A59C46218023}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FD817C2-9277-4882-9E51-A59C46218023}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

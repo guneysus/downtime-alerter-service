@@ -41,8 +41,13 @@ namespace DowntimeAlerterWeb
 
             services.AddScoped<IDowntimeAlertService, DowntimeAlertService>();
 
+            services.AddHttpClient();
             services.AddScoped<BacklogProcessingService>();
             services.AddHostedService<DowntimeAlertHostedService>();
+
+            services.AddSingleton<MonitorLoop>();
+            services.AddHostedService<QueuedHostedService>();
+            services.AddSingleton<IBackgroundTaskQueue, BackgroundTaskQueue>();
 
             services.AddRazorPages();
         }

@@ -1,5 +1,7 @@
+using DowntimeAlerterWeb.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,7 +15,12 @@ namespace DowntimeAlerterWeb
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            IHost host = CreateHostBuilder(args).Build();
+
+            var monitorLoop = host.Services.GetRequiredService<MonitorLoop>();
+            monitorLoop.StartMonitorLoop();
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

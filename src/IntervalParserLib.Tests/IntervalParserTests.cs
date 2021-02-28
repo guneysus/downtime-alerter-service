@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Xunit;
-using static IntervalParser;
+using static IntervalParserLib.IntervalParser;
 
 namespace IntervalParserLib.Tests
 {
