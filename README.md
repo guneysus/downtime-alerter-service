@@ -34,6 +34,8 @@ or using Visual Studit `Manage User Secrets` and adding this line:
 "SendGridKey": "<REDACTED>"
 ```
 
+![alarms](media/vivaldi_OuFxzfGtS7.png)
+
 The sqlite database is included in repo and two monitor is defined:
 
 |Id|Name|Url|Interval|
