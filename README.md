@@ -7,12 +7,12 @@
 user/passwords:
 
 ```
-username: serefguneysu@gmail.com
+username: serefguneysu at gmail dot com
 password: WX&U7gj5B
 ```
 
 ```
-username: g.seref@yahoo.ca
+username: g.seref at yahoo dot ca
 password: FqH4h8J!G
 ```
 
